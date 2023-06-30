@@ -15,7 +15,7 @@ export default {
           "dark-light": "rgba(67,97,238,.15)",
         },
         secondary: {
-          DEFAULT: "#805dca",
+          DEFAULT: "#0f172a",
           light: "#ebe4f7",
           "dark-light": "rgb(128 93 202 / 15%)",
         },
