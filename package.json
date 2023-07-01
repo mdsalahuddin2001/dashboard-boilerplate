@@ -25,6 +25,7 @@
     "react-animate-height": "^3.1.1",
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.1",
     "react-i18next": "^12.3.1",
     "react-icons": "^4.9.0",
     "react-perfect-scrollbar": "^1.5.8",
