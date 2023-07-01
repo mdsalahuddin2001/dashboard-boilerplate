@@ -6,7 +6,7 @@ export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     logout: builder.mutation({
       query: () => ({
-        url: "/auth/logout",
+        url: "/api/auth/logout",
         method: "POST",
       }),
 
@@ -21,7 +21,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
     login: builder.mutation({
       query: (data) => ({
-        url: "/auth/login",
+        url: "api/auth/login",
         method: "POST",
         body: data,
       }),
@@ -46,23 +46,20 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const result = await queryFulfilled;
-          dispatch(
-            userLoggedIn({
-              accessToken: result.data.accessToken,
-              user: result.data.user,
-            })
-          );
-        } catch (err) {
-          //
-        }
-      },
+    }),
+    verifyEmail: builder.mutation({
+      query: (data) => ({
+        url: "/api/auth/verify",
+        method: "POST",
+        body: data,
+      }),
     }),
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation } =
-  authApi;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+  useVerifyEmailMutation,
+} = authApi;

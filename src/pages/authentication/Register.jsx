@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 
 import { useRegisterMutation } from "../../features/auth/authApi";
 import { setPageTitle } from "../../features/theme/themeConfigSlice";
+import { setRegistrationInfo } from "../../features/auth/authSlice";
 
 const Register = () => {
   // registration api - mutation
-  const [registerUser, { isLoading, data, isError, error }] =
+  const [registerUser, { isLoading, data, isError, error, isSuccess }] =
     useRegisterMutation();
   const [errorMessage, setErrorMessage] = useState(null);
   const {
@@ -22,7 +23,13 @@ const Register = () => {
     dispatch(setPageTitle("Register Boxed"));
   });
   const navigate = useNavigate();
-
+  // navigate verify message page if success
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(data);
+      navigate("/auth/register/verification");
+    }
+  }, [isSuccess]);
   // set error message
   useEffect(() => {
     if (error) {
@@ -32,6 +39,8 @@ const Register = () => {
     }
   }, [error]);
   const handleFormSubmit = (data) => {
+    setErrorMessage(null);
+    dispatch(setRegistrationInfo(data));
     registerUser(data);
   };
 

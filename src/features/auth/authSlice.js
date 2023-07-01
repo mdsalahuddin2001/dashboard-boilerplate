@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   accessToken: undefined,
   user: null,
+  registrationInfo: null,
 };
 
 const authSlice = createSlice({
@@ -27,8 +28,12 @@ const authSlice = createSlice({
       // remove auth info from localStorage when loggedOut
       localStorage.removeItem("auth");
     },
+    setRegistrationInfo: (state, action) => {
+      state.registrationInfo = action.payload;
+    },
   },
 });
 
-export const { userLoggedIn, userLoggedOut } = authSlice.actions;
+export const { userLoggedIn, userLoggedOut, setRegistrationInfo } =
+  authSlice.actions;
 export default authSlice.reducer;

@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-
+import useAuthCheck from "./hooks/useAuthCheck";
 import "./index.css";
 
 // Perfect Scrollbar
@@ -18,11 +18,9 @@ import { Provider } from "react-redux";
 import store from "./app/store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Suspense>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </Suspense>
-  </React.StrictMode>
+  <Suspense>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </Suspense>
 );
