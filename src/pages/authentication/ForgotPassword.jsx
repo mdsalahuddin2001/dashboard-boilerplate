@@ -5,7 +5,7 @@ import { setPageTitle } from "../../features/theme/themeConfigSlice";
 import { useLoginMutation } from "../../features/auth/authApi";
 import { useForm } from "react-hook-form";
 
-const Login = () => {
+const ForgotPassword = () => {
   const [login, { isLoading, isSuccess, isError, error, data }] =
     useLoginMutation();
   const auth = useSelector((state) => state.auth);
@@ -63,8 +63,8 @@ const Login = () => {
             ></path>
           </svg>
         </div>
-        <h2 className="font-bold text-2xl mb-3">Sign In</h2>
-        <p className="mb-7">Enter your email and password to login</p>
+        <h2 className="font-bold text-2xl mb-3">Reset Password</h2>
+        <p className="mb-7">Enter your email to reset password</p>
         {errorMessage && (
           <div className="flex items-center p-3.5 rounded text-danger bg-danger-light dark:bg-danger-dark-light mb-3">
             {errorMessage}
@@ -91,33 +91,7 @@ const Login = () => {
               </p>
             )}
           </div>
-          <div className={errors.password ? "has-error" : ""}>
-            <label htmlFor="password">Password</label>
 
-            <input
-              id="password"
-              type="password"
-              className="form-input"
-              placeholder="Enter Password"
-              {...register("password", {
-                required: true,
-              })}
-            />
-            {errors.password?.type === "required" && (
-              <p role="alert" className="text-red-400 mt-1 text-xs">
-                Password is required
-              </p>
-            )}
-            <p className="text-sm   my-2" to="/auth/forgot-password">
-              Forgot your password?{" "}
-              <Link
-                to="/auth/forgot-password"
-                className="text-primary underline"
-              >
-                Reset
-              </Link>
-            </p>
-          </div>
           <button
             type="submit"
             className="btn btn-primary w-full bg-slate-900 flex items-center"
@@ -125,15 +99,15 @@ const Login = () => {
             {isLoading && (
               <span className="animate-spin border-2 border-primary border-l-transparent rounded-full w-4 h-4 inline-block align-middle m-0 mr-1.5"></span>
             )}
-            <span>Login</span>
+            <span>Reset</span>
           </button>
           <p className="text-center">
-            Already have an account ?
+            Password remembered ?
             <Link
-              to="/auth/register"
+              to="/auth/login"
               className="font-bold text-primary hover:underline ltr:ml-1 rtl:mr-1"
             >
-              Register
+              Login
             </Link>
           </p>
         </form>
@@ -142,4 +116,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

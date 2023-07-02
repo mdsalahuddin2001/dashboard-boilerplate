@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import useAuthCheck from "./hooks/useAuthCheck";
+import useAuthCheck from "../hooks/useAuthCheck";
 
 const Wrapper = () => {
   const isAuthChecked = useAuthCheck();

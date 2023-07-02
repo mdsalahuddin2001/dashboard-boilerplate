@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import BlankLayout from "../components/Layouts/BlankLayout";
 import DefaultLayout from "../components/Layouts/DefaultLayout";
 import { routes } from "./routes";
-import Wrapper from "../Wrapper";
+import Wrapper from "../components/Wrapper";
 
 const finalRoutes = routes.map((route) => {
   return {

@@ -2,14 +2,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setPageTitle } from "../../features/theme/themeConfigSlice";
-import { useLoginMutation } from "../../features/auth/authApi";
+import {
+  useLoginMutation,
+  useResetPasswordMutation,
+} from "../../features/auth/authApi";
 import { useForm } from "react-hook-form";
+import useQuery from "../../hooks/useQuery";
 
-const Login = () => {
-  const [login, { isLoading, isSuccess, isError, error, data }] =
-    useLoginMutation();
+const ResetPassword = () => {
+  const [resetPassword, { isLoading, isSuccess, isError, error, data }] =
+    useResetPasswordMutation();
   const auth = useSelector((state) => state.auth);
   const [errorMessage, setErrorMessage] = useState(null);
+  const query = useQuery();
+  const token = query.get("resettoken");
   const {
     register,
     handleSubmit,
@@ -38,7 +44,7 @@ const Login = () => {
   }, [error]);
   const handleFormSubmit = (data) => {
     setErrorMessage(null);
-    login(data);
+    resetPassword({ password: data.password, token });
   };
 
   return (
@@ -63,8 +69,8 @@ const Login = () => {
             ></path>
           </svg>
         </div>
-        <h2 className="font-bold text-2xl mb-3">Sign In</h2>
-        <p className="mb-7">Enter your email and password to login</p>
+        <h2 className="font-bold text-2xl mb-3">Update Password</h2>
+        <p className="mb-7">Enter your password and update</p>
         {errorMessage && (
           <div className="flex items-center p-3.5 rounded text-danger bg-danger-light dark:bg-danger-dark-light mb-3">
             {errorMessage}
@@ -74,23 +80,7 @@ const Login = () => {
           className="space-y-5 pb-4"
           onSubmit={handleSubmit(handleFormSubmit)}
         >
-          <div className={errors.email ? "has-error" : ""}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              className="form-input"
-              placeholder="Enter email"
-              {...register("email", {
-                required: true,
-                pattern: /^\S+@\S+$/i,
-              })}
-            />
-            {errors.email?.type === "required" && (
-              <p role="alert" className="text-red-400 mt-1 text-xs">
-                Email is required
-              </p>
-            )}
-          </div>
+          {/* password */}
           <div className={errors.password ? "has-error" : ""}>
             <label htmlFor="password">Password</label>
 
@@ -108,15 +98,25 @@ const Login = () => {
                 Password is required
               </p>
             )}
-            <p className="text-sm   my-2" to="/auth/forgot-password">
-              Forgot your password?{" "}
-              <Link
-                to="/auth/forgot-password"
-                className="text-primary underline"
-              >
-                Reset
-              </Link>
-            </p>
+          </div>
+          {/* confirm password */}
+          <div className={errors.confirmPassword ? "has-error" : ""}>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+
+            <input
+              id="confirmPassword"
+              type="confirmPassword"
+              className="form-input"
+              placeholder="Enter Confirm Password"
+              {...register("confirmPassword", {
+                required: true,
+              })}
+            />
+            {errors.password?.type === "required" && (
+              <p role="alert" className="text-red-400 mt-1 text-xs">
+                Confirm Password is required
+              </p>
+            )}
           </div>
           <button
             type="submit"
@@ -125,15 +125,15 @@ const Login = () => {
             {isLoading && (
               <span className="animate-spin border-2 border-primary border-l-transparent rounded-full w-4 h-4 inline-block align-middle m-0 mr-1.5"></span>
             )}
-            <span>Login</span>
+            <span>Reset</span>
           </button>
           <p className="text-center">
-            Already have an account ?
+            Password remembered ?
             <Link
-              to="/auth/register"
+              to="/auth/login"
               className="font-bold text-primary hover:underline ltr:ml-1 rtl:mr-1"
             >
-              Register
+              Login
             </Link>
           </p>
         </form>
@@ -142,4 +142,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ResetPassword;
