@@ -11,7 +11,7 @@ import Sidebar from "./Sidebar";
 import Portals from "../Portals";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import Wrapper from "../../Wrapper";
+import App from "../../App";
 
 const DefaultLayout = ({ children }) => {
   const themeConfig = useSelector((state) => state.themeConfig);
@@ -62,8 +62,7 @@ const DefaultLayout = ({ children }) => {
   }, [isAuthenticated, navigate]);
 
   return (
-    <Wrapper>
-      (
+    <App>
       <div className="relative">
         {/* sidebar menu overlay */}
         <div
@@ -161,7 +160,7 @@ const DefaultLayout = ({ children }) => {
         </div>
       </div>
       )
-    </Wrapper>
+    </App>
   );
 };
 

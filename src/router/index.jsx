@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import BlankLayout from "../components/Layouts/BlankLayout";
 import DefaultLayout from "../components/Layouts/DefaultLayout";
 import { routes } from "./routes";
+import Wrapper from "../Wrapper";
 
 const finalRoutes = routes.map((route) => {
   return {
@@ -15,6 +16,8 @@ const finalRoutes = routes.map((route) => {
   };
 });
 
-const router = createBrowserRouter(finalRoutes);
+const router = createBrowserRouter([
+  { element: <Wrapper />, children: finalRoutes },
+]);
 
 export default router;

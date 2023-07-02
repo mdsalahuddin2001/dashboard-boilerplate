@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { setPageTitle } from "../../features/theme/themeConfigSlice";
 import { useLoginMutation } from "../../features/auth/authApi";
@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 const Login = () => {
   const [login, { isLoading, isSuccess, isError, error, data }] =
     useLoginMutation();
+  const auth = useSelector((state) => state.auth);
   const [errorMessage, setErrorMessage] = useState(null);
   const {
     register,
@@ -22,11 +23,11 @@ const Login = () => {
   const navigate = useNavigate();
   // navigate verify message page if success
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && auth.user) {
       console.log(data);
       navigate("/");
     }
-  }, [isSuccess]);
+  }, [isSuccess, auth]);
   // set error message
   useEffect(() => {
     if (error) {

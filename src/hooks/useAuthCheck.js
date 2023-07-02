@@ -8,8 +8,11 @@ export default function useAuthCheck() {
 
   useEffect(() => {
     const localAuth = localStorage?.getItem("auth");
+    console.log("authcheck");
+
     if (localAuth) {
       const auth = JSON.parse(localAuth);
+
       if (auth?.accessToken && auth?.user) {
         dispatch(
           userLoggedIn({
