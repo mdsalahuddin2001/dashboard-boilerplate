@@ -1,4 +1,4 @@
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { setPageTitle } from '../../features/theme/themeConfigSlice';
@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import useQuery from '../../hooks/useQuery';
 
 const ResetPassword = () => {
-	const [resetPassword, { isLoading, isSuccess, isError, error, data }] = useResetPasswordMutation();
+	const [resetPassword, { isLoading, isSuccess, error }] = useResetPasswordMutation();
 	const auth = useSelector((state) => state.auth);
 	const [errorMessage, setErrorMessage] = useState(null);
 	const query = useQuery();
@@ -22,22 +22,23 @@ const ResetPassword = () => {
 	useEffect(() => {
 		dispatch(setPageTitle('Login'));
 	});
+
 	const navigate = useNavigate();
 	// navigate verify message page if success
 	useEffect(() => {
 		if (isSuccess && auth.user) {
-			console.log(data);
 			navigate('/');
 		}
-	}, [isSuccess, auth]);
+	}, [isSuccess, auth, navigate]);
+
 	// set error message
 	useEffect(() => {
 		if (error) {
 			setErrorMessage(error?.data?.message || 'Something went wrong! Please try again.');
 		}
 	}, [error]);
+
 	const handleFormSubmit = (data) => {
-		console.log(token);
 		setErrorMessage(null);
 		resetPassword({ password: data.password, token });
 	};
