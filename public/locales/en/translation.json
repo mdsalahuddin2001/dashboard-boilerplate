@@ -120,5 +120,6 @@
     "checkbox": "Checkbox",
     "skin": "Skin",
     "sticky_header": "Sticky Header",
-    "clone_header": "Clone Header"
+    "clone_header": "Clone Header",
+    "all_users": "All Users"
 }
