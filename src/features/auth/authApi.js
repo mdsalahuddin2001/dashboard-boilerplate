@@ -6,7 +6,7 @@ export const authApi = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		logout: builder.mutation({
 			query: () => ({
-				url: '/api/auth/logout',
+				url: '/auth/logout',
 				method: 'POST',
 			}),
 
@@ -42,21 +42,21 @@ export const authApi = apiSlice.injectEndpoints({
 		}),
 		register: builder.mutation({
 			query: (data) => ({
-				url: '/api/auth/register',
+				url: '/auth/register',
 				method: 'POST',
 				body: data,
 			}),
 		}),
 		verifyEmail: builder.mutation({
 			query: (data) => ({
-				url: '/api/auth/verify',
+				url: '/auth/verify',
 				method: 'POST',
 				body: data,
 			}),
 		}),
 		forgotPassword: builder.mutation({
 			query: (email) => ({
-				url: `/api/auth/forgot-password`,
+				url: `/auth/forgot-password`,
 				method: 'POST',
 				body: {
 					email,
@@ -65,7 +65,7 @@ export const authApi = apiSlice.injectEndpoints({
 		}),
 		resetPassword: builder.mutation({
 			query: (data) => ({
-				url: `/api/auth/reset-password?resettoken=${data.token}`,
+				url: `/auth/reset-password?resettoken=${data.token}`,
 				method: 'POST',
 				body: {
 					password: data.password,

@@ -2,6 +2,7 @@ import React, { lazy } from "react";
 import Register from "../pages/authentication/Register";
 import VerifyEmail from "../pages/authentication/VerifyEmail";
 import ForgotPassword from "../pages/authentication/ForgotPassword";
+import AllUser from "../pages/users/AllUser";
 const Index = lazy(() => import("../pages/Index"));
 const Login = lazy(() => import("../pages/authentication/Login"));
 const ResetPassword = lazy(()=> import('../pages/authentication/ResetPassword'))
@@ -47,6 +48,10 @@ const routes = [
   {
     path: "/apps/notes",
     element: <Notes />,
+  },
+  {
+    path: "/users",
+    element: <AllUser />,
   },
   {
     path: "*",
