@@ -1,4 +1,5 @@
 import { BiEdit } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
 import { useUsersQuery } from "../../features/users/userSlice";
 import {
   createColumnHelper,
@@ -6,8 +7,12 @@ import {
   useReactTable,
   flexRender,
 } from "@tanstack/react-table";
+import ConfirmDelete from "../../components/ConfirmDelete";
+import { useState } from "react";
 
 function AllUser() {
+  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+
   const { isSuccess, data, isLoading, isError } = useUsersQuery();
   const columnHelper = createColumnHelper();
   const defaultColumns = [
@@ -59,8 +64,11 @@ function AllUser() {
             <span className="cursor-pointer text-lg text-gray-500">
               <BiEdit />
             </span>
-            <span className="cursor-pointer text-lg text-gray-500">
-              <BiEdit />
+            <span
+              className="cursor-pointer text-lg text-gray-500"
+              onClick={() => setConfirmDeleteModalOpen(true)}
+            >
+              <MdDelete />
             </span>
           </div>
         );
@@ -78,37 +86,43 @@ function AllUser() {
     return <h1 className="text-4xl">Loading...</h1>;
   }
   return (
-    <div className="relative overflow-x-auto">
-      <table className="whitespace-nowrap">
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <div className="relative overflow-x-auto">
+        <table className="whitespace-nowrap">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ConfirmDelete
+        isOpen={confirmDeleteModalOpen}
+        setIsOpen={setConfirmDeleteModalOpen}
+      />
+    </>
   );
 }
 
