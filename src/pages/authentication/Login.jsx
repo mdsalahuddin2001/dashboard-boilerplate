@@ -24,7 +24,7 @@ const Login = () => {
   // navigate verify message page if success
   useEffect(() => {
     if (isSuccess && auth.user) {
-      console.log(data);
+   
       navigate("/");
     }
   }, [isSuccess, auth]);

@@ -1,6 +1,9 @@
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import { useUsersQuery } from "../../features/users/userSlice";
+import {
+  useDeleteUserMutation,
+  useGetUsersQuery,
+} from "../../features/users/usersApi";
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -12,8 +15,15 @@ import { useState } from "react";
 
 function AllUser() {
   const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+  const [deleteLoaderId, setDeleteLoaderId] = useState(null);
+  // get users query
+  const { isSuccess, data, isLoading, isError } = useGetUsersQuery();
+  // delete user mutation
+  const [deleteUser, { isLoading: deleteLoading }] = useDeleteUserMutation();
 
-  const { isSuccess, data, isLoading, isError } = useUsersQuery();
+  // handle user delete
+
+  // elements for react table
   const columnHelper = createColumnHelper();
   const defaultColumns = [
     columnHelper.accessor("name", {
@@ -58,19 +68,32 @@ function AllUser() {
     columnHelper.accessor("_id", {
       header: () => "Actions",
       cell: (info) => {
-        console.log(info.row.original);
         return (
-          <div className="flex items-center space-x-2">
-            <span className="cursor-pointer text-lg text-gray-500">
-              <BiEdit />
-            </span>
-            <span
-              className="cursor-pointer text-lg text-gray-500"
-              onClick={() => setConfirmDeleteModalOpen(true)}
-            >
-              <MdDelete />
-            </span>
-          </div>
+          <>
+            <div className="flex items-center space-x-2">
+              <span className="cursor-pointer text-lg text-gray-500">
+                <BiEdit />
+              </span>
+
+              {deleteLoading && deleteLoaderId === info.row.original._id ? (
+                <span className="animate-spin border-2 border-red-400 border-l-transparent rounded-full w-3 h-3 inline-block align-middle m-0 mr-1.5"></span>
+              ) : (
+                <span
+                  className="cursor-pointer text-lg text-gray-500"
+                  onClick={() => setConfirmDeleteModalOpen(true)}
+                >
+                  <MdDelete />
+                </span>
+              )}
+            </div>
+            <ConfirmDelete
+              isOpen={confirmDeleteModalOpen}
+              setIsOpen={setConfirmDeleteModalOpen}
+              id={info.row.original._id}
+              deleteUser={deleteUser}
+              setDeleteLoaderId={setDeleteLoaderId}
+            />
+          </>
         );
       },
     }),
@@ -118,10 +141,6 @@ function AllUser() {
           </tbody>
         </table>
       </div>
-      <ConfirmDelete
-        isOpen={confirmDeleteModalOpen}
-        setIsOpen={setConfirmDeleteModalOpen}
-      />
     </>
   );
 }

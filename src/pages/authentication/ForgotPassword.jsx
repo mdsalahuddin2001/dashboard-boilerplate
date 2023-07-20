@@ -23,7 +23,7 @@ const ForgotPassword = () => {
 	// navigate verify message page if success
 	useEffect(() => {
 		if (isSuccess && auth.user) {
-			console.log(data);
+			
 			navigate('/');
 		}
 	}, [isSuccess, auth]);
@@ -35,7 +35,7 @@ const ForgotPassword = () => {
 	}, [error]);
 	const handleFormSubmit = (data) => {
 		setErrorMessage(null);
-		console.log(data);
+	
 		forgotPassword(data.email);
 	};
 

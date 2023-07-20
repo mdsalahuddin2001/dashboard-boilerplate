@@ -26,7 +26,6 @@ const Register = () => {
   // navigate verify message page if success
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
       navigate("/auth/register/verification");
     }
   }, [isSuccess]);
