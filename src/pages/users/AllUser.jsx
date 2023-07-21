@@ -9,10 +9,11 @@ import {
   getCoreRowModel,
   useReactTable,
   flexRender,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import ConfirmDelete from "../../components/ConfirmDelete";
 import { useState } from "react";
-
+import Pagination from "../../components/Pagination";
 function AllUser() {
   const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
   const [deleteLoaderId, setDeleteLoaderId] = useState(null);
@@ -103,6 +104,7 @@ function AllUser() {
     data: data?.data.users || [],
     columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   if (isLoading) {
@@ -140,6 +142,13 @@ function AllUser() {
             ))}
           </tbody>
         </table>
+        <Pagination
+          totalPage={table.getPageCount()}
+          setPage={(page) => table.setPageIndex(page - 1)}
+          currentPage={table.getState().pagination.pageIndex + 1}
+          limit={table.getState().pagination.pageSize}
+          setLimit={(limit) => table.setPageSize(limit ? Number(limit) : 10)}
+        />
       </div>
     </>
   );
