@@ -1,13 +1,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-function ConfirmDelete({
-  isOpen,
-  setIsOpen,
-  id,
-  deleteUser,
-  setDeleteLoaderId,
-}) {
+function ConfirmDelete({ isOpen, setIsOpen, id, deleteUser }) {
   // close modal
   const closeModal = () => {
     setIsOpen(false);
@@ -19,7 +13,7 @@ function ConfirmDelete({
 
   // handle delete
   const handleDelete = () => {
-    setDeleteLoaderId(id);
+    console.log(id);
     deleteUser(id);
     closeModal();
   };

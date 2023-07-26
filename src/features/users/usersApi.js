@@ -9,10 +9,13 @@ const userApi = apiSlice.injectEndpoints({
 
     // delete users
     deleteUser: builder.mutation({
-      query: (id) => ({
-        url: `/users/${id}`,
-        method: "DELETE",
-      }),
+      query: (id) => {
+        console.log("id", id);
+        return {
+          url: `/users/${id}`,
+          method: "DELETE",
+        };
+      },
 
       onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {
         try {
