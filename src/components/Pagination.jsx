@@ -6,8 +6,6 @@ const Pagination = ({
   setLimit = () => {},
   setPage = () => {},
 }) => {
-  console.log(totalPage);
-
   let middlePagination;
 
   if (totalPage <= 5) {

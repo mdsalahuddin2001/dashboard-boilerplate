@@ -13,7 +13,6 @@ function ConfirmDelete({ isOpen, setIsOpen, id, deleteUser }) {
 
   // handle delete
   const handleDelete = () => {
-    console.log(id);
     deleteUser(id);
     closeModal();
   };
