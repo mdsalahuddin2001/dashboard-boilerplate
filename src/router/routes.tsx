@@ -3,12 +3,17 @@ import Register from "../pages/authentication/Register";
 import VerifyEmail from "../pages/authentication/VerifyEmail";
 import ForgotPassword from "../pages/authentication/ForgotPassword";
 import AllUser from "../pages/users/AllUser";
+const Categories = lazy(() => import("../pages/categoris/Categories"));
 const Index = lazy(() => import("../pages/Index"));
 const Login = lazy(() => import("../pages/authentication/Login"));
-const ResetPassword = lazy(()=> import('../pages/authentication/ResetPassword'))
+const ResetPassword = lazy(
+  () => import("../pages/authentication/ResetPassword")
+);
 const Notes = lazy(() => import("../pages/Apps/Notes"));
 const ERROR404 = lazy(() => import("../pages/Pages/Error404"));
-const VerifyEmailMessage = lazy(() => import("../pages/authentication/VerifyEmailMessage"));
+const VerifyEmailMessage = lazy(
+  () => import("../pages/authentication/VerifyEmailMessage")
+);
 const routes = [
   // dashboard
   {
@@ -27,12 +32,12 @@ const routes = [
   },
   {
     path: "/auth/forgot-password",
-    element: <ForgotPassword/>,
+    element: <ForgotPassword />,
     layout: "blank",
   },
   {
     path: "/auth/reset-password",
-    element: <ResetPassword/>,
+    element: <ResetPassword />,
     layout: "blank",
   },
   {
@@ -52,6 +57,10 @@ const routes = [
   {
     path: "/users",
     element: <AllUser />,
+  },
+  {
+    path: "/categories",
+    element: <Categories />,
   },
   {
     path: "*",
